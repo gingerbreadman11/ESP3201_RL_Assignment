@@ -10,37 +10,13 @@ class ValueIterationAgent(ValueEstimationAgent):
       (see mdp.py) on initialization and runs value iteration
       for a given number of iterations using the supplied
       discount factor.
-  """
-  """def __init__(self, mdp, discount = 0.9, iterations = 100):
-    """"""
-      Your value iteration agent should take an mdp on
-      construction, run the indicated number of iterations
-      and then act according to the resulting policy.
-    
-      Some useful mdp methods you will use:
-          mdp.getStates()
-          mdp.getPossibleActions(state)
-          mdp.getTransitionStatesAndProbs(state, action)
-          mdp.getReward(state, action, nextState)
-    """"""
+  
     self.mdp = mdp
     self.discount = discount
     self.iterations = iterations
     self.values = util.Counter() # A Counter is a dict with default 0
      
     "*** YOUR CODE HERE ***"
-    #util.raiseNotDefined()
-    for i in range(self.iterations):
-        new_values = util.Counter()
-        for state in self.mdp.getStates():
-            if self.mdp.isTerminal(state):
-                continue
-            possible_actions = self.mdp.getPossibleActions(state)
-            new_values[state] = max(
-                sum(prob * (self.mdp.getReward(state, action, next_state) + self.discount * self.values[next_state])
-                    for next_state, prob in self.mdp.getTransitionStatesAndProbs(state, action))
-                for action in possible_actions)
-        self.values = new_values
   """
   def __init__(self, mdp, discount=0.9, iterations=100):
     self.mdp = mdp
@@ -88,11 +64,9 @@ class ValueIterationAgent(ValueEstimationAgent):
       passes).  Note that value iteration does not
       necessarily create this quantity and you may have
       to derive it on the fly.
-    """"""
-    "*** YOUR CODE HERE ***"
-    return sum(prob * (self.mdp.getReward(state, action, next_state) + self.discount * self.values[next_state])
-      for next_state, prob in self.mdp.getTransitionStatesAndProbs(state, action))
-  """
+    """
+  "*** YOUR CODE HERE ***"
+  
   def getQValue(self, state, action):
 
     total_q_value = 0
