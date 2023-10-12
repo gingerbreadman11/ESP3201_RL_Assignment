@@ -39,6 +39,7 @@ class QLearningAgent(ReinforcementAgent):
     "*** YOUR CODE HERE ***"
     self.q_values = util.Counter()
     self.epsilon_decay = 1 #just a value i used to do some tests
+    #the idea was to make the exploration part smaller with time whicht got me better results for this particular map
     # Initialize Q-values to 0
 
   
@@ -62,9 +63,12 @@ class QLearningAgent(ReinforcementAgent):
     """
     "*** YOUR CODE HERE ***"
     "Returns max_action Q(state, action)"
+    #get all the actions
     legal_actions = self.getLegalActions(state)
+    #make sure that your not in a terminal state
     if not legal_actions:
         return 0.0
+    #returns teh greatest QValue for all of teh posssible states
     return max(self.getQValue(state, action) for action in legal_actions)
 
     
@@ -75,16 +79,15 @@ class QLearningAgent(ReinforcementAgent):
       you should return None.
     """
     "*** YOUR CODE HERE ***"
-    # util.raiseNotDefined()
     "Compute the best action to take in a state"
     legal_actions = self.getLegalActions(state)
     if not legal_actions:
         return None
     q_values = [self.getQValue(state, action) for action in legal_actions]
-    max_q_value = max(q_values)
+    #max_q_value = max(q_values)
     max_q_value = self.getValue(state)
     # Breaking ties randomly
-    #there might be multiple best actions so just to be sure every bath get explored but it isnt neccesary
+    #there might be multiple best actions so just to be sure every path gets explored but it isnt neccesary
     best_actions = [action for action, q_value in zip(legal_actions, q_values) if q_value == max_q_value]
     return random.choice(best_actions)
 
@@ -101,27 +104,18 @@ class QLearningAgent(ReinforcementAgent):
       HINT: To pick randomly from a list, use random.choice(list)
     """  
     "Compute the action to take based on the ε-greedy policy"
-    """
     legal_actions = self.getLegalActions(state)
     if not legal_actions:
         return None
-    
-    if util.flipCoin(self.epsilon):
-        return random.choice(legal_actions)
-    else:
-        return self.getPolicy(state)
-    """
-    "Compute the action to take based on the ε-greedy policy"
-    legal_actions = self.getLegalActions(state)
-    if not legal_actions:
-        return None
-    
+    #depending on how much exploration you want to have you can set epsilon
+    #so epsilon is the percentage of the random action
     if util.flipCoin(self.epsilon):
         action = random.choice(legal_actions)
     else:
         action = self.getPolicy(state)
     
     # Decay epsilon after each action
+    #currently this doesnt do anything since epsilon_decay is set to 1
     self.epsilon *= self.epsilon_decay
     
     return action

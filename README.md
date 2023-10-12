@@ -1,5 +1,7 @@
 # ESP3201_RL_Assignment
 This Is just a simple RL Assignment. But im using it to also learn to use GitHub.
+The code from gingerbreadman11 is in the files qlearningAgents.py
+and valueIterationsAgents.py everything else has been given to me.
 textGridworldDisplay.py
 -----------------------
 You are free to use and extend these projects for educational

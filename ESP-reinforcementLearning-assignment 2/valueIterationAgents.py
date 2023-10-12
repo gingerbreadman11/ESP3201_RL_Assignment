@@ -108,11 +108,15 @@ class ValueIterationAgent(ValueEstimationAgent):
       terminal state, you should return None.
     """
     "*** YOUR CODE HERE ***"
+    #getting possible actions
     possible_actions = self.mdp.getPossibleActions(state)
+    #if there aren't any actions return None
     if not possible_actions:
         return None
-
+    #go through all possible actions and pick the one with the greatest QValue
+    #return that action
     return max(possible_actions, key=lambda action: self.getQValue(state, action))
+    #old code that doesnt seem to be working
     """ best_action = None
         highest_q_value = float('-inf')
 
